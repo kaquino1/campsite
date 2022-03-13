@@ -1,0 +1,62 @@
+<% layout('layouts/boilerplate') %>
+<div class='wrapper my-5'>
+<div class='row justify-content-center'>
+  
+  <div class='col-12 col-md-8 col-xl-6'>
+    <h4 class='text-centered'>Add a Campground</h4>
+
+    <form action='/campgrounds' method='POST' novalidate class='mb-5 needs-validation' enctype='multipart/form-data'>
+      
+      <div class='mb-3'>
+        <label class='form-label' for='title'>Title</label>
+        <input class='form-control' type='text' name='campground[title]' id='title' required>
+        <div class='valid-feedback'>
+          Looks good!
+        </div>
+      </div>
+
+      <div class='mb-3'>
+        <label class='form-label'for='location'>Location</label>
+        <input class='form-control'type='text' name='campground[location]' id='title' required>
+        <div class='valid-feedback'>
+          Looks good!
+        </div>
+      </div>
+      
+      <div class='mb-3'>
+        <label class='form-label' for='price'>Campground Price / Night</label>
+        <div class='input-group'>
+          <span class='input-group-text' id='price-label'>$</span>
+          <input type='text' class='form-control' placeholder='0.00' name='campground[price]' id='price' aria-describedby='price-label' required>
+          <div class='valid-feedback'>
+            Looks good!
+          </div>
+        </div>
+      </div>
+      
+      <div class='mb-3'>
+        <label class='form-label' for='description'>Description</label>
+        <textarea class='form-control' name='campground[description]' id='description' required></textarea>
+        <div class='valid-feedback'>
+          Looks good!
+        </div>
+      </div>
+
+      <div class='mb-3'>
+        <label for='files' class='form-label'>Add Images</label>
+        <input class='form-control' type='file' id='files' name='image' multiple >
+      </div>
+
+      <hr class='my-4'>
+
+      <div class='d-grid mb-3'>
+        <button class='btn btn-success'>Add Campground</button>
+      </div>
+
+    </form>
+    <div class='text-center'>
+    <a href='/campgrounds' class='btn btn-primary'>Back to All Campgrounds</a>
+    </div>
+  </div>
+</div>
+</div>

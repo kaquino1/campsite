@@ -1,0 +1,60 @@
+<% layout('layouts/boilerplate') %>
+<div id='cluster-map'></div>
+
+<div class='text-center'>
+  <h1 class='my-3'><%= campgrounds.length > 0 ? 'All Campgrounds' : 'No Campgrounds Yet' %> </h1>
+</div>
+
+<div class='wrapper'>
+
+<% for (let campground of campgrounds) {%>
+<div class='card mb-3 shadow'>
+  <div class='row'>
+
+    <div class='col-lg-4 my-auto'>
+      <img class='img-fluid' src='<%= campground.images.length ? campground.images[0].url : 'https://images.unsplash.com/photo-1510672981848-a1c4f1cb5ccf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2372&q=80' %>'>
+    </div>
+
+    <div class='col-lg-8'>
+      <div class='card-body'>
+        <h4 class='card-title'>
+          <%= campground.title %>
+        </h4>
+        <h6 class='card-subtitle text-muted mb-3'>
+          <%= campground.location %>
+        </h6>
+        <p class='card-text'>
+          <%= campground.description %>
+        </p>
+        <a href='/campgrounds/<%= campground._id %>' class='btn btn-primary'>
+          View <%= campground.title %>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div> 
+<% } %>
+
+<nav aria-label='pagination'>
+  <ul class='pagination justify-content-center'>
+
+    <% for (let i=0; i < pages; i++) { %>
+      <li class='page-item'>
+        <a class='page-link' href='/campgrounds/pages/<%= i+1 %> '>
+          <%= i+1 %>
+        </a>
+      </li>
+    <% } %>
+
+  </ul>
+</nav>
+
+</div>
+
+<script>
+  const mbxToken = '<%- process.env.MAPBOX_TOKEN %>';
+  const campgrounds = {features: <%- JSON.stringify(allCampgrounds) %>};
+</script>
+
+<script src='/scripts/clusterMap.js'></script>

@@ -1,0 +1,58 @@
+<% layout('layouts/boilerplate') %>
+<link rel='stylesheet' href='/css/stars.css'>
+
+  <% if (reviews.length) { %>
+    <div class='wrapper row my-5 justify-content-center'>
+    <% for (let review of reviews) { %>
+      <div class='col-12 col-lg-6 col-xxl-4'>
+        
+        <div class='card mb-3 shadow'>
+          <img src='<%= review.campground.images.length ? review.campground.images[0].url : 'https://images.unsplash.com/photo-1510672981848-a1c4f1cb5ccf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2372&q=80' %>' class='img-fluid'>
+
+          <div class='card-body'>
+
+            <h4 class='card-title'>
+              <%= review.campground.title %>
+            </h4>
+            <h6 class='card-subtitle'>
+              <%= review.campground.location %>
+            </h6>
+            <p class='star-display mt-3' data-rating='<%= review.rating %>'>
+              Rated: <%= review.rating %> stars
+            </p>
+            <p class='card-text'>
+              <%= review.body %>
+            </p>
+            <a href='/campgrounds/<%= review.campground._id %>' class='btn btn-primary'>
+              View <%= review.campground.title %>
+            </a>
+
+          </div>
+
+          <div class='card-footer review-tag'>
+            Reviewed by <%= currentUser.username %>
+          </div>
+
+        </div>
+      </div>
+    <% } %>
+  </div>
+
+  <% if (pages > 1) { %> 
+  <nav aria-label='pagination'>
+    <ul class='pagination justify-content-center'>
+      <% for (let i=0; i < pages; i++) { %>
+        <li class='page-item'>
+          <a class='page-link' href='/users/<%= currentUser._id %>/reviews/pages/<%= i+1 %> '>
+            <%= i+1 %>
+          </a>
+        </li>
+      <% } %> 
+    </ul>
+  </nav>
+  <% } %> 
+<% } %>
+    
+<% if (!reviews.length) { %>
+  <h1>You have not reviewed any Campgrounds!</h1>
+<% } %>
