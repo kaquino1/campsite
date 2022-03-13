@@ -24,7 +24,7 @@ module.exports.paginate = async (req, res) => {
   const campgrounds = await Campground.find({})
     .skip(nPerPage * currPage)
     .limit(nPerPage);
-  res.render('campgrounds/index', { allCampgrounds, campgrounds, pages: maxPage });
+  res.render('campgrounds/index', { allCampgrounds, campgrounds, current: Number(page), pages: maxPage });
 };
 
 module.exports.renderNewForm = (req, res) => {
