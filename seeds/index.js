@@ -1,11 +1,16 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
 const mongoose = require('mongoose');
-// const cities = require('./cities');
-const new_cities = require('./new_cities');
+const cities = require('./cities');
 const { places, descriptors } = require('./seedHelpers');
 const Campground = require('../models/campground');
 const Review = require('../models/review');
 
-mongoose.connect('mongodb://localhost:27017/campsite');
+const dbUrl = process.env.MONGODB_URL || 'mongodb://localhost:27017/campsite'
+
+mongoose.connect(dbUrl);
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -46,17 +51,11 @@ const randomNumber = elements => {
   return Math.floor(Math.random() * elements);
 };
 
-// const weightedRandom = () => {
-//   const num = randomNumber(10)
-//   return num < 7 ? 'katrina' : 'demo'
-// }
-
 const seedDB = async () => {
   await Campground.deleteMany({});
   await Review.deleteMany({});
   for (let i = 0; i < 300; i++) {
-    // const random1000 = randomNumber(1000);
-    const cityIndex = randomNumber(new_cities.length);
+    const cityIndex = randomNumber(cities.length);
     const price = randomNumber(20) + 10;
 
     const img1 = randomNumber(6);
@@ -66,15 +65,13 @@ const seedDB = async () => {
     }
 
     const camp = new Campground({
-      author: '622d6f9896af4dd0f3c8b5fa',
-      // location: `${cities[random1000].city}, ${cities[random1000].state}`,
-      location: `${new_cities[cityIndex].city}, ${new_cities[cityIndex].state}`,
+      author: '622d895a391b6e277a7acae8',
+      location: `${cities[cityIndex].city}, ${cities[cityIndex].state}`,
       title: `${sample(descriptors)} ${sample(places)}`,
       description:
         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates similique harum architecto rem, nobis fugiat obcaecati, ea sint iure debitis accusantium optio vitae molestias ullam. Numquam, corrupti! Explicabo iure dolor consectetur doloremque. Maiores quidem voluptatum recusandae libero molestiae perferendis ullam doloremque, autem exercitationem quaerat quia! Labore accusamus repellat dolorum impedit sit, reprehenderit nesciunt reiciendis dolore fuga! Explicabo esse in repellat tenetur quasi ullam repellendus a libero delectus animi natus quibusdam, temporibus, enim aliquam facere, optio dolor.',
       price,
-      // geometry: { type: 'Point', coordinates: [cities[random1000].longitude, cities[random1000].latitude] },
-      geometry: { type: 'Point', coordinates: [new_cities[cityIndex].longitude, new_cities[cityIndex].latitude] },
+      geometry: { type: 'Point', coordinates: [cities[cityIndex].longitude, cities[cityIndex].latitude] },
       images: [imgUrls[img1], imgUrls[img2]],
       rating: 0
     });
