@@ -36,6 +36,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(mongoSanitize({ replaceWith: '_' }));
+app.use(flash());
 
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
@@ -62,7 +63,6 @@ const sessionConfig = {
 };
 
 app.use(session(sessionConfig));
-app.use(flash());
 
 const scriptSrcUrls = [
   'https://api.tiles.mapbox.com/',
