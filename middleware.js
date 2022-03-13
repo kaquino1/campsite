@@ -27,7 +27,7 @@ module.exports.isAuthor = async (req, res, next) => {
   const campground = await Campground.findById(id);
   if (!campground) {
     req.flash('error', 'Cannot Find That Campground!');
-    return res.redirect('/campgrounds');
+    return res.redirect('/campgrounds/pages/1');
   }
   if (!campground.author.equals(req.user._id)) {
     req.flash('error', 'You do not have permission to do that!');
@@ -41,7 +41,7 @@ module.exports.isReviewAuthor = async (req, res, next) => {
   const review = await Review.findById(reviewId);
   if (!review) {
     req.flash('error', 'Cannot Find That Review!');
-    return res.redirect('/campgrounds');
+    return res.redirect('/campgrounds/pages/1');
   }
   if (!review.author.equals(req.user._id)) {
     req.flash('error', 'You do not have permission to do that!');

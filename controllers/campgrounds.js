@@ -5,15 +5,11 @@ const geocoder = mbxGeocoding({ accessToken: mbxToken });
 const { cloudinary } = require('../cloudinary');
 const { isValidObjectId } = require('mongoose');
 
-module.exports.index = async (req, res) => {
-  res.redirect('/campgrounds/pages/1');
-};
-
 module.exports.paginate = async (req, res) => {
-  const { page } = req.params;
+  const { page } = req.params || 1;
   if (page < 1) {
     req.flash('error', 'Cannot Find That Page!');
-    return res.redirect('/campgrounds');
+    return res.redirect('/campgrounds/pages/1');
   }
   const nPerPage = 12;
   const allCampgrounds = await Campground.find({});
@@ -22,7 +18,7 @@ module.exports.paginate = async (req, res) => {
 
   if (page > maxPage && count != 0) {
     req.flash('error', 'Cannot Find That Page!');
-    return res.redirect('/campgrounds');
+    return res.redirect('/campgrounds/pages/1');
   }
   const currPage = req.params.page - 1;
   const campgrounds = await Campground.find({})
@@ -51,7 +47,7 @@ module.exports.createCampground = async (req, res, next) => {
 module.exports.showCampground = async (req, res) => {
   if (!isValidObjectId(req.params.id)) {
     req.flash('error', 'Cannot Find That Campground!');
-    return res.redirect('/campgrounds');
+    return res.redirect('/campgrounds/pages/1');
   }
   const campground = await Campground.findById(req.params.id)
     .populate({
@@ -63,7 +59,7 @@ module.exports.showCampground = async (req, res) => {
     .populate('author');
   if (!campground) {
     req.flash('error', 'Cannot Find That Campground!');
-    return res.redirect('/campgrounds');
+    return res.redirect('/campgrounds/pages/1');
   }
   res.render('campgrounds/show', { campground });
 };
@@ -73,7 +69,7 @@ module.exports.renderEditForm = async (req, res) => {
   const campground = await Campground.findById(id);
   if (!campground) {
     req.flash('error', 'Cannot Find That Campground!');
-    return res.redirect('/campgrounds');
+    return res.redirect('/campgrounds/pages/1');
   }
   res.render('campgrounds/edit', { campground });
 };
@@ -100,5 +96,5 @@ module.exports.deleteCampground = async (req, res) => {
   const { id } = req.params;
   await Campground.findByIdAndDelete(id);
   req.flash('success', 'Successfully Deleted a Campground');
-  res.redirect('/campgrounds');
+  res.redirect('/campgrounds/pages/1');
 };
