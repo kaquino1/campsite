@@ -42,8 +42,3 @@ module.exports.reviewSchema = Joi.object({
     body: Joi.string().required().escapeHTML()
   }).required()
 });
-
-// module.exports.userSchema = Joi.object({
-//   username: Joi.string().required().escapeHTML(),
-//   email: Joi.string().escapeHTML()
-// });

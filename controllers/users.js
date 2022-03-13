@@ -27,7 +27,7 @@ module.exports.renderLogin = (req, res) => {
 };
 
 module.exports.login = (req, res) => {
-  req.flash('success', 'Welcome Back!');
+  req.flash('success', `Welcome Back ${req.body.username}!`);
   const redirectUrl = req.session.returnTo || '/campgrounds';
   delete req.session.returnTo;
   res.redirect(redirectUrl);
@@ -78,6 +78,7 @@ module.exports.renderUserReviews = async (req, res) => {
   const { id, page } = req.params;
   if (page < 1) {
     req.flash('error', 'Cannot Find That Page!');
+    req.session.save();
     return res.redirect('/campgrounds');
   }
   const nPerPage = 12;
@@ -86,6 +87,7 @@ module.exports.renderUserReviews = async (req, res) => {
 
   if (page > maxPage && count != 0) {
     req.flash('error', 'Cannot Find That Page!');
+    req.session.save();
     return res.redirect('/campgrounds');
   }
   const currPage = req.params.page - 1;

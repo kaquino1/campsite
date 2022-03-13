@@ -16,8 +16,8 @@ module.exports.paginate = async (req, res) => {
     return res.redirect('/campgrounds');
   }
   const nPerPage = 12;
-  const allCampgrounds = await Campground.find({})
-  const count = allCampgrounds.length
+  const allCampgrounds = await Campground.find({});
+  const count = allCampgrounds.length;
   const maxPage = count == 0 ? 0 : Math.ceil(count / nPerPage);
 
   if (page > maxPage && count != 0) {
@@ -80,7 +80,6 @@ module.exports.renderEditForm = async (req, res) => {
 
 module.exports.updateCampground = async (req, res) => {
   const { id } = req.params;
-  console.log(req.body);
   const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground });
 
   const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
