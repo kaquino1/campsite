@@ -1,6 +1,6 @@
 # CampSite
 
-![gif](https://github.com/kaquino1/sudoku/blob/main/campsite.gif?raw=true)
+![gif](https://github.com/kaquino1/campsite/blob/main/campsite.gif?raw=true)
 
 ### Deployed Website: https://camp-site-app.herokuapp.com
 
