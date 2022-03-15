@@ -1,8 +1,9 @@
 <% layout('layouts/boilerplate') %>
 <link rel='stylesheet' href='/css/stars.css'>
 
-<div class='wrapper row my-5'>
-  <div class='col-6'>
+<div class='my-5'>
+<div class='wrapper row'>
+  <div class='col-lg-6 mb-3 mb-lg-0'>
 
     <div id='campgroundCarousel' class='carousel slide' data-bs-ride='carousel'>
       <div class='carousel-inner'>
@@ -31,11 +32,23 @@
       <% } %>
     </div>
     
-    <div class='card'>
+    <div class='card shadow'>
       <img src='<%= campground.image %>' class='card-img-top'>
       <div class='card-body'>
         <h4 class='card-title'><%= campground.title %></h4>
         <h6 class='card-subtitle mb-3'><%= campground.location %></h6>
+        
+        <div class='mb-3'>
+        <h5 class='card-title'>
+          <%= campground.rating !=0 ? `Average Rating: ${(campground.rating / campground.reviews.length).toFixed(1)} / 5`
+            : 'No Ratings' %>
+        </h5>
+        <% if (campground.rating !=0) { %>
+          <h6 class='card-subtitle'>
+            <%= campground.reviews.length %> Review(s)
+          </h6>
+        <% } %>
+        </div>
         
         <p class='card-text'><%= campground.description %></p>
         <p class='card-text'>$<%= campground.price %> / night</p>
@@ -56,21 +69,16 @@
 
   </div>
 
-  <div class='col-6'>
+  <div class='col-lg-6 '>
 
-    <div id='map' class='mb-3'></div>
+    <div id='map' class='mb-3 border shadow'></div>
 
-    <div class='mb-3'>
-      <h4> <%= campground.rating != 0 ? `Average Rating: ${(campground.rating / campground.reviews.length).toFixed(1)} / 5` : 'No Ratings' %> </h4>
-      <% if (campground.rating != 0) { %>
-        <h5>
-          <%= campground.reviews.length %> Review(s)
-        </h5>
-      <% } %> 
-    </div>
+    
 
     <% if (currentUser) { %>
-    <h2>Leave a Review</h2>
+      <div class='card shadow'>
+        <div class='card-body'>
+    <h2 class='card-title'>Leave a Review</h2>
     <form action='/campgrounds/<%= campground._id %>/reviews' method='POST' class='mb-3 needs-validation' novalidate>
       <div class=''>
         <fieldset class='stars-group'>
@@ -100,33 +108,43 @@
       </div>
       <button class='btn btn-success'>Submit</button>
     </form>
+    </div>
+    </div>
     <% } %>
-
-    <% for (let review of campground.reviews) { %>
-      <div class='card mb-3'>
-        <div class='card-body'>
-          <h5 class='card-title'>
-            <%= review.author.username %>
-          </h5>
-          
-          <p class='star-display' data-rating='<%= review.rating %>'>
-            Rated: <%= review.rating %> stars
-          </p>
-          
-          <p class='card-text'>
-            Review: <%= review.body %>
-          </p>
-          <% if( currentUser && review.author.equals(currentUser._id)) { %>
-            <form action='/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE' method='POST'>
-              <button class='btn btn-sm btn-danger'>Delete</button>
-            </form>
-          <% } %>
-        </div>
-      </div>
-    <% } %>
-
   </div>
 </div>
+
+<% if (campground.reviews.length) { %> 
+<div class='wrapper row mt-3'>
+<% for (let review of campground.reviews) { %>
+  <div class='col-lg-6'>
+  <div class='card mb-3 shadow'>
+    <div class='card-body'>
+      <h5 class='card-title'>
+        <%= review.author.username %>
+      </h5>
+  
+      <p class='star-display' data-rating='<%= review.rating %>'>
+        Rated: <%= review.rating %> stars
+      </p>
+  
+      <p class='card-text'>
+        Review: <%= review.body %>
+      </p>
+      <% if( currentUser && review.author.equals(currentUser._id)) { %>
+        <form action='/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE' method='POST'>
+          <button class='btn btn-sm btn-danger'>Delete</button>
+        </form>
+      <% } %>
+    </div>
+  </div>
+  </div>
+  <% } %>
+</div>
+<% } %> 
+</div>
+
+
 
 <script>
   const mbxToken = '<%- process.env.MAPBOX_TOKEN %>';

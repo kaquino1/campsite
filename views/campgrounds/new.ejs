@@ -2,10 +2,13 @@
 <div class='wrapper my-5'>
 <div class='row justify-content-center'>
   
-  <div class='col-12 col-md-8 col-xl-6'>
-    <h4 class='text-centered'>Add a Campground</h4>
+  <div class='col-12 col-md-8'>
+    
+    <div class='card shadow'>
+      <div class='card-body p-4'>
+    <h4 class='card-title text-center'>Add a Campground</h4>
 
-    <form action='/campgrounds' method='POST' novalidate class='mb-5 needs-validation' enctype='multipart/form-data'>
+    <form action='/campgrounds' method='POST' novalidate class='needs-validation' enctype='multipart/form-data'>
       
       <div class='mb-3'>
         <label class='form-label' for='title'>Title</label>
@@ -47,16 +50,19 @@
         <input class='form-control' type='file' id='files' name='image' multiple >
       </div>
 
-      <hr class='my-4'>
+      <!-- <hr class='my-4'> -->
 
-      <div class='d-grid mb-3'>
-        <button class='btn btn-success'>Add Campground</button>
+      <div class='d-grid'>
+        <button class='btn btn-success mt-3'>Add Campground</button>
       </div>
 
     </form>
-    <div class='text-center'>
+    </div>
+    </div>
+    <div class='text-center mt-5'>
     <a href='/campgrounds/pages/1' class='btn btn-primary'>Back to All Campgrounds</a>
     </div>
+  
   </div>
 </div>
 </div>

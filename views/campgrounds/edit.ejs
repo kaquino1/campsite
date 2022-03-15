@@ -2,11 +2,14 @@
 <div class='wrapper my-5'>
 <div class='row justify-content-center'>
 
-  <div class='col-12 col-md-8 col-xl-6'>
+  <div class='col-12 col-md-8'>
 
-    <h4 class='text-centered'>Edit Campground</h4>
-
-    <form action='/campgrounds/<%=campground._id%>?_method=PUT' method='POST' novalidate class='needs-validation mb-5' enctype='multipart/form-data'>
+    
+    <div class='card shadow'>
+      
+      <div class='card-body p-4'>
+        <h4 class='card-title text-center'>Edit Campground</h4>
+    <form action='/campgrounds/<%=campground._id%>?_method=PUT' method='POST' novalidate class='needs-validation' enctype='multipart/form-data'>
 
       <div class='mb-3'>
         <label class='form-label' for='title'>Title</label>
@@ -71,13 +74,15 @@
         </div>
       </div>
 
-      <hr class='my-4'>
+      <!-- <hr class='my-4'> -->
 
-      <div class='d-grid mb-3'>
+      <div class='d-grid'>
         <button class='btn btn-success'>Update Campground</button>
       </div>
     </form>
-    <div class='text-center'>
+    </div>
+    </div>
+    <div class='text-center mt-5'>
     <a href='/campgrounds/<%= campground._id %>' class='btn btn-primary'>Back to Campground</a>
     </div>
   </div>
