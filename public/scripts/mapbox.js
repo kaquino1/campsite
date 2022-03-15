@@ -10,7 +10,7 @@ const map = new mapboxgl.Map({
 map.addControl(new mapboxgl.NavigationControl());
 
 new mapboxgl.Marker({
-  color: 'orange'
+  color: '#FF5800'
 })
   .setLngLat(campground.geometry.coordinates)
   .setPopup(

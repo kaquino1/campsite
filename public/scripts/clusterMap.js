@@ -27,7 +27,7 @@ map.on('load', () => {
       // BLUE, 15px WHEN POINT COUNT < 10
       // YELLOW, 20px WHEN POINT COUNT > 10 AND < 30
       // MONT, 25px WHEN POINT COUNT 30+
-      'circle-color': ['step', ['get', 'point_count'], '#3581B8', 10, '#FFC759', 30, '#aaf0d1'],
+      'circle-color': ['step', ['get', 'point_count'], '#689DDF', 10, '#FFC759', 30, '#aaf0d1'],
       'circle-radius': ['step', ['get', 'point_count'], 15, 10, 20, 30, 25]
     }
   });

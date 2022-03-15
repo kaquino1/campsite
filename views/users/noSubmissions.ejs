@@ -21,7 +21,7 @@
   <div class='d-flex w-100 h-100 pb-4 mx-auto flex-column text-center text-white'>
 
     <main class='p-5 mt-5 mt-auto'>
-      <h2 class='mb-4'><%= type === 'campgrounds' ? 'You have no Campgrounds.' : 'You have no Reviews.' %></h2>
+      <h2 class='mb-4'><%= type === 'campgrounds' ? 'You have no Campgrounds, yet.' : 'You have no Reviews, yet.' %></h2>
 
       <a href='<%= type==='campgrounds' ? '/campgrounds/new' : '/campgrounds/pages/1' %>' class='btn btn-lg btn-secondary font-weight-bold border-white bg-white'>
         <%= type==='campgrounds' ? 'Add a Campground!' : 'Review a Campground!' %>
