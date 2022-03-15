@@ -8,7 +8,7 @@ const { places, descriptors } = require('./seedHelpers');
 const Campground = require('../models/campground');
 const Review = require('../models/review');
 
-const dbUrl = process.env.MONGODB_URL || 'mongodb://localhost:27017/campsite'
+const dbUrl = process.env.MONGODB_URL || 'mongodb://localhost:27017/campsite';
 
 mongoose.connect(dbUrl);
 
@@ -69,7 +69,7 @@ const seedDB = async () => {
       location: `${cities[cityIndex].city}, ${cities[cityIndex].state}`,
       title: `${sample(descriptors)} ${sample(places)}`,
       description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates similique harum architecto rem, nobis fugiat obcaecati, ea sint iure debitis accusantium optio vitae molestias ullam. Numquam, corrupti! Explicabo iure dolor consectetur doloremque. Maiores quidem voluptatum recusandae libero molestiae perferendis ullam doloremque, autem exercitationem quaerat quia! Labore accusamus repellat dolorum impedit sit, reprehenderit nesciunt reiciendis dolore fuga! Explicabo esse in repellat tenetur quasi ullam repellendus a libero delectus animi natus quibusdam, temporibus, enim aliquam facere, optio dolor.',
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates similique harum architecto rem, nobis fugiat obcaecati, ea sint iure debitis accusantium optio vitae molestias ullam. Numquam, corrupti! Explicabo iure dolor consectetur doloremque. Maiores quidem voluptatum recusandae libero molestiae perferendis ullam doloremque, autem exercitationem quaerat quia!',
       price,
       geometry: { type: 'Point', coordinates: [cities[cityIndex].longitude, cities[cityIndex].latitude] },
       images: [imgUrls[img1], imgUrls[img2]],
