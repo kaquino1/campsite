@@ -69,7 +69,7 @@ module.exports.renderUserCampgrounds = async (req, res) => {
     .limit(nPerPage);
 
   if (count == 0) {
-    return res.render('users/NoSubmissions', { type: 'campgrounds' });
+    return res.render('users/noSubmissions', { type: 'campgrounds' });
   }
   res.render('users/showCampgrounds', { campgrounds, pages: maxPage, current: Number(page) });
 };
@@ -97,7 +97,7 @@ module.exports.renderUserReviews = async (req, res) => {
     .populate('campground');
 
   if (count == 0) {
-    return res.render('users/NoSubmissions', { type: 'reviews' });
+    return res.render('users/noSubmissions', { type: 'reviews' });
   }
   res.render('users/showReviews', { reviews, pages: maxPage, current: Number(page) });
 };
