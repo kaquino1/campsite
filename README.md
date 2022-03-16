@@ -4,6 +4,9 @@
 
 #### [Deployed Website](https://camp-site-app.herokuapp.com)
 
+**Demo Username:** demo  
+**Demo Password:** demo
+
 A full-stack CRUD application with a RESTful API that displays crowdsourced campground information and reviews. Users can create accounts, create/view/edit/remove campgrounds, upload images, and post/remove reviews. Implemented authentication and authorization, sessions and cookies, flash messages, result pagination, and schema validation.
 
 ---
