@@ -5,27 +5,28 @@ const geocoder = mbxGeocoding({ accessToken: mbxToken });
 const { cloudinary } = require('../cloudinary');
 const { isValidObjectId } = require('mongoose');
 
-module.exports.paginate = async (req, res) => {
-  const { page } = req.params || 1;
+module.exports.showCampgrounds = async (req, res) => {
+  const page = req.query.page || 1;
   if (page < 1) {
     req.flash('error', 'Cannot Find That Page!');
-    return res.redirect('/campgrounds/pages/1');
+    return res.redirect('/campgrounds?page=1');
   }
-  const nPerPage = 12;
+  const limit = 12
   const allCampgrounds = await Campground.find({});
   const count = allCampgrounds.length;
-  const maxPage = count == 0 ? 0 : Math.ceil(count / nPerPage);
+  const maxPage = count == 0 ? 0 : Math.ceil(count / limit);
 
   if (page > maxPage && count != 0) {
     req.flash('error', 'Cannot Find That Page!');
-    return res.redirect('/campgrounds/pages/1');
+    return res.redirect('/campgrounds?page=1');
   }
-  const currPage = req.params.page - 1;
+
+  const currPage = req.query.page - 1;
   const campgrounds = await Campground.find({})
-    .skip(nPerPage * currPage)
-    .limit(nPerPage);
+    .skip(limit * currPage)
+    .limit(limit);
   res.render('campgrounds/index', { allCampgrounds, campgrounds, current: Number(page), pages: maxPage });
-};
+}
 
 module.exports.renderNewForm = (req, res) => {
   res.render('campgrounds/new');

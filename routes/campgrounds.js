@@ -9,11 +9,10 @@ const upload = multer({ storage });
 
 router
   .route('/')
+  .get(catchAsync(campgroundControllers.showCampgrounds))
   .post(isLoggedIn, upload.array('image'), validateCampground, catchAsync(campgroundControllers.createCampground));
 
 router.get('/new', isLoggedIn, campgroundControllers.renderNewForm);
-
-router.get('/pages/:page', catchAsync(campgroundControllers.paginate));
 
 router
   .route('/:id')
