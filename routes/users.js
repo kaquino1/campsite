@@ -14,12 +14,8 @@ router
 
 router.get('/logout', userControllers.logout);
 
-router.get('/users/:id/campgrounds', isLoggedIn, userControllers.campgroundIndex);
+router.get('/users/:id/campgrounds', isLoggedIn, catchAsync(userControllers.renderUserCampgrounds));
 
-router.get('/users/:id/reviews', isLoggedIn, userControllers.reviewIndex);
-
-router.get('/users/:id/campgrounds/pages/:page', isLoggedIn, catchAsync(userControllers.renderUserCampgrounds));
-
-router.get('/users/:id/reviews/pages/:page', isLoggedIn, catchAsync(userControllers.renderUserReviews));
+router.get('/users/:id/reviews', isLoggedIn, catchAsync(userControllers.renderUserReviews));
 
 module.exports = router;
