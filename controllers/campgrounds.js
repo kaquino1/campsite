@@ -9,7 +9,7 @@ module.exports.showCampgrounds = async (req, res) => {
   const page = req.query.page || 1;
   if (page < 1) {
     req.flash('error', 'Cannot Find That Page!');
-    return res.redirect('/campgrounds?page=1');
+    return res.redirect('/campgrounds');
   }
   const limit = 12
   const allCampgrounds = await Campground.find({});
@@ -18,7 +18,7 @@ module.exports.showCampgrounds = async (req, res) => {
 
   if (page > maxPage && count != 0) {
     req.flash('error', 'Cannot Find That Page!');
-    return res.redirect('/campgrounds?page=1');
+    return res.redirect('/campgrounds');
   }
 
   const currPage = req.query.page - 1;
@@ -48,7 +48,7 @@ module.exports.createCampground = async (req, res, next) => {
 module.exports.showCampground = async (req, res) => {
   if (!isValidObjectId(req.params.id)) {
     req.flash('error', 'Cannot Find That Campground!');
-    return res.redirect('/campgrounds/pages/1');
+    return res.redirect('/campgrounds');
   }
   const campground = await Campground.findById(req.params.id)
     .populate({
@@ -60,7 +60,7 @@ module.exports.showCampground = async (req, res) => {
     .populate('author');
   if (!campground) {
     req.flash('error', 'Cannot Find That Campground!');
-    return res.redirect('/campgrounds/pages/1');
+    return res.redirect('/campgrounds');
   }
   res.render('campgrounds/show', { campground });
 };
@@ -70,7 +70,7 @@ module.exports.renderEditForm = async (req, res) => {
   const campground = await Campground.findById(id);
   if (!campground) {
     req.flash('error', 'Cannot Find That Campground!');
-    return res.redirect('/campgrounds/pages/1');
+    return res.redirect('/campgrounds');
   }
   res.render('campgrounds/edit', { campground });
 };
@@ -97,5 +97,5 @@ module.exports.deleteCampground = async (req, res) => {
   const { id } = req.params;
   await Campground.findByIdAndDelete(id);
   req.flash('success', 'Successfully Deleted a Campground');
-  res.redirect('/campgrounds/pages/1');
+  res.redirect('/campgrounds');
 };
