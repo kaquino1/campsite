@@ -3,7 +3,6 @@ const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const mbxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mbxToken });
 const { cloudinary } = require('../cloudinary');
-const { isValidObjectId } = require('mongoose');
 
 module.exports.showCampgrounds = async (req, res) => {
   const page = req.query.page || 1;

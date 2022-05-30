@@ -1,7 +1,6 @@
 const User = require('../models/user');
 const Campground = require('../models/campground');
 const Review = require('../models/review');
-const { isValidObjectId } = require('mongoose');
 
 module.exports.renderSignup = (req, res) => {
   res.render('users/signup');
